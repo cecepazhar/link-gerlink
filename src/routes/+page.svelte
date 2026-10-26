@@ -43,7 +43,7 @@
 	}
 </script>
 
-<div class="min-h-screen bg-slate-950 text-slate-100">
+<div class="flex min-h-screen flex-col bg-slate-950 text-slate-100">
 	<header class="border-b border-slate-800/60 sticky top-0 z-50 bg-slate-950/90 backdrop-blur-md">
 		<div class="mx-auto max-w-5xl px-4 py-4 sm:py-5">
 			<div class="flex flex-col gap-3 sm:flex-row sm:items-center sm:justify-between">
@@ -94,7 +94,7 @@
 		</div>
 	</header>
 
-	<main class="mx-auto max-w-5xl px-4 py-6 sm:py-8">
+	<main class="mx-auto w-full max-w-5xl flex-1 px-4 py-6 sm:py-8">
 		{#if loading}
 			<div class="flex flex-col items-center justify-center py-20 text-slate-500">
 				<LoaderCircle size={32} class="animate-spin" />
@@ -153,7 +153,7 @@
 	</main>
 
 	<footer class="border-t border-slate-800/60 py-6 text-center text-xs text-slate-600">
-		© {new Date().getFullYear()} Gerlink — link-gerlink
+		Software Engineer RND Gerlink &copy; 2026
 	</footer>
 </div>
 

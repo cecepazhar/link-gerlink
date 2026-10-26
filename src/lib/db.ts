@@ -1,20 +1,23 @@
 import { drizzle } from 'drizzle-orm/libsql';
 import { createClient } from '@libsql/client';
-import { env } from '#env/dynamic/private';
 
 function getClient() {
-	const rawUrl = env.TURSO_DATABASE_URL || process.env.TURSO_DATABASE_URL || '';
-	const authToken = env.TURSO_AUTH_TOKEN || process.env.TURSO_AUTH_TOKEN || '';
+	const rawUrl = process.env.TURSO_DATABASE_URL || '';
+	const authToken = process.env.TURSO_AUTH_TOKEN || '';
 
 	if (!rawUrl) {
 		throw new Error(
-			'TURSO_DATABASE_URL is not set. Add it to .env or set it as an environment variable.'
+			'TURSO_DATABASE_URL belum diatur. Pastikan ada di file .env'
 		);
 	}
 
-	const libsqlUrl = rawUrl.startsWith('libsql://')
-		? rawUrl.replace('libsql://', '')
+	let libsqlUrl = rawUrl.startsWith('libsql://')
+		? rawUrl.replace('libsql://', 'https://')
 		: rawUrl;
+
+	if (!/^https:\/\//i.test(libsqlUrl)) {
+		libsqlUrl = 'https://' + libsqlUrl;
+	}
 
 	const client = createClient({
 		url: libsqlUrl,
