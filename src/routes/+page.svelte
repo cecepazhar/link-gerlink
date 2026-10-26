@@ -47,13 +47,16 @@
 	<header class="border-b border-slate-800/60 sticky top-0 z-50 bg-slate-950/90 backdrop-blur-md">
 		<div class="mx-auto max-w-5xl px-4 py-4 sm:py-5">
 			<div class="flex flex-col gap-3 sm:flex-row sm:items-center sm:justify-between">
-				<div>
-					<h1 class="text-xl sm:text-2xl font-bold tracking-tight text-white">
-						<span class="text-amber-400">Gerlink</span> Drive Hub
-					</h1>
-					<p class="mt-0.5 text-xs text-slate-400">Kumpulan link & dokumen penting</p>
+				<div class="flex items-center gap-3">
+					<img src="/gerlink-logo.png" alt="Logo Gerlink" class="h-10 w-10 rounded-lg bg-white object-contain p-1 sm:h-12 sm:w-12 sm:p-1.5" />
+					<div>
+						<h1 class="text-xl sm:text-2xl font-bold tracking-tight text-white">
+							<span class="text-cyan-400">Gerlink</span> Drive Hub
+						</h1>
+						<p class="mt-0.5 text-xs text-slate-400">Kumpulan link &amp; dokumen penting</p>
+					</div>
 				</div>
-				<a href="/admin" class="text-xs text-slate-400 hover:text-white transition-colors flex items-center gap-1 w-fit bg-slate-900 border border-slate-800 px-3 py-1.5 rounded-lg hover:border-slate-700">
+				<a href="/admin" class="text-xs text-slate-400 hover:text-white transition-colors flex items-center gap-1 w-fit bg-slate-900 border border-slate-800 px-3 py-1.5 rounded-lg hover:border-cyan-500/50">
 					<Plus size={14} /> Kelola Link
 				</a>
 			</div>
@@ -64,7 +67,7 @@
 						type="search"
 						bind:value={searchQuery}
 						placeholder="Cari link, dokumen, kategori…"
-						class="w-full rounded-lg border border-slate-700 bg-slate-900 py-2.5 pl-9 pr-4 text-sm text-slate-100 placeholder-slate-500 focus:border-amber-500 focus:outline-none focus:ring-1 focus:ring-amber-500"
+						class="w-full rounded-lg border border-slate-700 bg-slate-900 py-2.5 pl-9 pr-4 text-sm text-slate-100 placeholder-slate-500 focus:border-cyan-500 focus:outline-none focus:ring-1 focus:ring-cyan-500"
 					/>
 				</div>
 				<div class="flex gap-2 overflow-x-auto pb-1 sm:pb-0 no-scrollbar">
@@ -72,7 +75,7 @@
 						onclick={() => (selectedCat = 'Semua')}
 						class="rounded-full px-3 py-1.5 text-xs font-medium whitespace-nowrap transition-colors
 							{selectedCat === 'Semua'
-								? 'bg-amber-500 text-slate-950'
+								? 'bg-cyan-500 text-slate-950'
 								: 'bg-slate-800 text-slate-300 hover:bg-slate-700'}">
 						Semua
 					</button>
@@ -81,7 +84,7 @@
 							onclick={() => (selectedCat = cat)}
 							class="rounded-full px-3 py-1.5 text-xs font-medium whitespace-nowrap transition-colors
 								{selectedCat === cat
-									? 'bg-amber-500 text-slate-950'
+									? 'bg-cyan-500 text-slate-950'
 									: 'bg-slate-800 text-slate-300 hover:bg-slate-700'}">
 							{cat}
 						</button>
@@ -113,16 +116,16 @@
 						href={link.url}
 						target="_blank"
 						rel="noopener noreferrer"
-						class="group relative rounded-xl border border-slate-800 bg-slate-900/60 p-4 sm:p-5 transition-all hover:border-amber-500/50 hover:bg-slate-900 hover:scale-[1.01] focus:outline-none focus:ring-2 focus:ring-amber-500/40">
+						class="group relative rounded-xl border border-slate-800 bg-slate-900/60 p-4 sm:p-5 transition-all hover:border-cyan-500/50 hover:bg-slate-900 hover:scale-[1.01] focus:outline-none focus:ring-2 focus:ring-cyan-500/40">
 						{#if link.is_pinned}
-							<div class="absolute right-3 top-3 flex items-center gap-1 rounded-full bg-amber-500/15 px-2 py-1 text-[10px] font-bold uppercase tracking-wider text-amber-400">
+							<div class="absolute right-3 top-3 flex items-center gap-1 rounded-full bg-cyan-500/15 px-2 py-1 text-[10px] font-bold uppercase tracking-wider text-cyan-400">
 								<Pin size={10} /> Pinned
 							</div>
 						{/if}
 						<div class="mb-3 flex items-start gap-3">
 							<span class="text-3xl leading-none" aria-hidden="true">{link.icon || '📁'}</span>
 							<div class="min-w-0 flex-1">
-								<h3 class="text-sm font-bold text-slate-100 group-hover:text-amber-300 transition-colors line-clamp-2">
+								<h3 class="text-sm font-bold text-slate-100 group-hover:text-cyan-300 transition-colors line-clamp-2">
 									{link.title}
 								</h3>
 								{#if link.category}
@@ -139,7 +142,7 @@
 							{#if link.created_at}
 								<span>Tgl {formatDate(link.created_at)}</span>
 							{/if}
-							<span class="flex items-center gap-1 transition-colors group-hover:text-amber-400">
+							<span class="flex items-center gap-1 transition-colors group-hover:text-cyan-400">
 								Buka <ExternalLink size={12} />
 							</span>
 						</div>

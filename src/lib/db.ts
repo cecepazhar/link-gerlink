@@ -1,10 +1,16 @@
-import { json } from '@sveltejs/kit';
 import { drizzle } from 'drizzle-orm/libsql';
 import { createClient } from '@libsql/client';
+import { env } from '#env/dynamic/private';
 
 function getClient() {
-	const rawUrl = import.meta.env.TURSO_DATABASE_URL ?? '';
-	const authToken = import.meta.env.TURSO_AUTH_TOKEN;
+	const rawUrl = env.TURSO_DATABASE_URL || process.env.TURSO_DATABASE_URL || '';
+	const authToken = env.TURSO_AUTH_TOKEN || process.env.TURSO_AUTH_TOKEN || '';
+
+	if (!rawUrl) {
+		throw new Error(
+			'TURSO_DATABASE_URL is not set. Add it to .env or set it as an environment variable.'
+		);
+	}
 
 	const libsqlUrl = rawUrl.startsWith('libsql://')
 		? rawUrl.replace('libsql://', '')

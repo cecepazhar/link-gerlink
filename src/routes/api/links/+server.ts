@@ -1,7 +1,7 @@
 import { json } from '@sveltejs/kit';
 import type { RequestHandler } from './$types';
-import { db } from '$lib/db';
-import { links } from '$lib/schema';
+import { db } from '#lib/db';
+import { links } from '#lib/schema';
 import { desc, asc, and, eq, like, or } from 'drizzle-orm';
 import { nanoid } from 'nanoid';
 

@@ -34,6 +34,10 @@
 
 	async function verifyPin(e: Event) {
 		e.preventDefault();
+		if (!/^\d{6}$/.test(pinInput)) {
+			pinError = 'PIN harus tepat 6 digit angka.';
+			return;
+		}
 		checking = true;
 		pinError = '';
 		try {
@@ -214,13 +218,17 @@
 					<input
 						type="password"
 						bind:value={pinInput}
-						pattern="\d{6}"
 						maxlength="6"
 						inputmode="numeric"
-						placeholder="••••••"
+						placeholder="Masukkan 6 digit PIN"
 						class="w-full rounded-lg border border-slate-700 bg-slate-950 py-3 text-center text-lg tracking-widest text-white placeholder-slate-700 focus:border-amber-500 focus:outline-none focus:ring-1 focus:ring-amber-500"
 						autofocus
+						autocomplete="off"
+						name="admin-pin-input"
 					/>
+					{#if pinInput && !/^\d{6}$/.test(pinInput)}
+						<p class="text-xs text-rose-400">PIN harus 6 digit angka (contoh: 123456)</p>
+					{/if}
 					{#if pinError}
 						<p class="text-xs text-rose-400">{pinError}</p>
 					{/if}
