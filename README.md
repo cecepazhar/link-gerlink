@@ -1,56 +1,44 @@
-# sv
+# Gerlink Drive Hub
 
-Everything you need to build a Svelte project, powered by [`sv`](https://github.com/sveltejs/cli).
+Kumpulan link repositori dokumen dan tautan internal RND Gerlink.
 
-## Creating a project
+## Persiapan Pengembangan (Local Dev)
 
-If you're seeing this, you've probably already done this step. Congrats!
-
+### 1. Setup Domain Local (`drivegerlink.test`)
+Tambahkan baris berikut ke file `/etc/hosts` Anda (butuh akses sudo/root):
 ```sh
-# create a new project
-npx sv create my-app
+echo "127.0.0.1 drivegerlink.test" | sudo tee -a /etc/hosts
 ```
 
-To recreate this project with the same configuration:
-
+### 2. Konfigurasi Environment (.env)
+Salin contoh environment:
 ```sh
-# recreate this project
-npx sv@1.1.1 create --template minimal --types ts --add tailwindcss="plugins:none" --install npm .
+cp .env.example .env
+```
+Variabel default:
+- `PUBLIC_PIN`: `gerlinkjuara` (PIN untuk membuka halaman utama)
+- `ADMIN_PIN`: `123456` (PIN untuk halaman `/admin`)
+- `TURSO_DATABASE_URL`: `file:local.db` (database lokal SQLite) atau URL database Turso
+
+### 3. Instalasi Dependensi (menggunakan pnpm)
+```sh
+pnpm install
 ```
 
-## Adding features
-
-Add features to your project with `sv add`:
-
+### 4. Menjalankan Server Pengembangan
 ```sh
-npx sv add
+pnpm dev
 ```
+Buka browser di: [http://drivegerlink.test:5173](http://drivegerlink.test:5173)
 
-For example, to add Tailwind CSS:
-
+### 5. Build & Typecheck
 ```sh
-npx sv add tailwindcss
+# Typecheck
+pnpm check
+
+# Build produksi
+pnpm build
+
+# Preview build
+pnpm preview
 ```
-
-## Developing
-
-Once you've created a project and installed dependencies with `npm install` (or `pnpm install` or `yarn`), start a development server:
-
-```sh
-npm run dev
-
-# or start the server and open the app in a new browser tab
-npm run dev -- --open
-```
-
-## Building
-
-To create a production version of your app:
-
-```sh
-npm run build
-```
-
-You can preview the production build with `npm run preview`.
-
-> To deploy your app, you may need to install an [adapter](https://svelte.dev/docs/kit/adapters) for your target environment.

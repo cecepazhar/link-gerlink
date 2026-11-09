@@ -5,8 +5,24 @@ import { links } from '#lib/schema';
 import { desc, asc, and, eq, like, or } from 'drizzle-orm';
 import { nanoid } from 'nanoid';
 
-// GET all links or search
-export const GET: RequestHandler = async ({ url }) => {
+// GET all links or search - requires access_pin or admin_pin
+export const GET: RequestHandler = async ({ url, cookies }) => {
+	const accessPin = cookies.get('access_pin');
+	const adminPin = cookies.get('admin_pin');
+	const expectedPublicPin = process.env.PUBLIC_PIN || 'gerlinkjuara';
+	const expectedAdminPin = process.env.ADMIN_PIN || '123456';
+
+	const isAuthorized =
+		(accessPin && accessPin === expectedPublicPin) ||
+		(adminPin && adminPin === expectedAdminPin);
+
+	if (!isAuthorized) {
+		return json(
+			{ success: false, error: 'Unauthorized: Masukkan PIN untuk mengakses link' },
+			{ status: 401 }
+		);
+	}
+
 	const q = url.searchParams.get('q')?.trim() ?? '';
 	const cat = url.searchParams.get('cat')?.trim() ?? '';
 

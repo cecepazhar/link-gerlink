@@ -2,7 +2,7 @@ import { drizzle } from 'drizzle-orm/libsql';
 import { createClient } from '@libsql/client';
 
 function getClient() {
-	const rawUrl = process.env.TURSO_DATABASE_URL || '';
+	const rawUrl = process.env.TURSO_DATABASE_URL || 'file:local.db';
 	const authToken = process.env.TURSO_AUTH_TOKEN || '';
 
 	if (!rawUrl) {
@@ -11,17 +11,16 @@ function getClient() {
 		);
 	}
 
-	let libsqlUrl = rawUrl.startsWith('libsql://')
-		? rawUrl.replace('libsql://', 'https://')
-		: rawUrl;
-
-	if (!/^https:\/\//i.test(libsqlUrl)) {
-		libsqlUrl = 'https://' + libsqlUrl;
+	let libsqlUrl = rawUrl;
+	if (rawUrl.startsWith('libsql://')) {
+		libsqlUrl = rawUrl.replace('libsql://', 'https://');
+	} else if (!rawUrl.startsWith('file:') && !/^https?:\/\//i.test(rawUrl)) {
+		libsqlUrl = 'https://' + rawUrl;
 	}
 
 	const client = createClient({
 		url: libsqlUrl,
-		authToken,
+		authToken: authToken || undefined,
 	});
 
 	return drizzle(client);
